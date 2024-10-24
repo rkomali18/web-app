@@ -1,19 +1,19 @@
 FROM alpine:3.14
 
-# Install python3 and pip
-RUN apk add --no-cache python3 py3-pip
+# Install dependencies
+RUN apk add --no-cache python3 py3-pip ca-certificates && \
+    update-ca-certificates
 
-# Upgrade pip to the latest version
+# Upgrade pip
 RUN pip3 install --upgrade pip
 
-# Copy the requirements file
+# Copy requirements.txt
 COPY requirements.txt /usr/src/app/
 
-# Install dependencies with upgraded pip
+# Install Python dependencies
 RUN pip3 install --no-cache-dir --trusted-host pypi.python.org -r /usr/src/app/requirements.txt
 
-# Copy the app files (if applicable)
-COPY app.py /usr/src/app/
+# Copy app files if applicable
 EXPOSE 5000
 
 CMD ["python", "/usr/src/app/app.py"]
