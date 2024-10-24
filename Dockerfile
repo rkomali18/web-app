@@ -1,16 +1,16 @@
 FROM alpine:3.5
 
-# Install py2-pip
-RUN apk add --update py2-pip
+# Install python3 and pip
+RUN apk add --no-cache python3 py3-pip
 
 # Upgrade pip to the latest version
-RUN pip install --upgrade pip
+RUN pip3 install --upgrade pip
 
 # Copy the requirements file
 COPY requirements.txt /usr/src/app/
 
 # Install dependencies with upgraded pip
-RUN pip install --no-cache-dir --trusted-host pypi.python.org -r /usr/src/app/requirements.txt
+RUN pip3 install --no-cache-dir --trusted-host pypi.python.org -r /usr/src/app/requirements.txt
 
-# Copy the app files
+# Copy the app files (if applicable)
 COPY app.py /usr/src/app/
