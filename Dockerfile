@@ -1,4 +1,4 @@
-FROM alpine:3.5
+FROM alpine:3.14
 
 # Install python3 and pip
 RUN apk add --no-cache python3 py3-pip
@@ -14,3 +14,6 @@ RUN pip3 install --no-cache-dir --trusted-host pypi.python.org -r /usr/src/app/r
 
 # Copy the app files (if applicable)
 COPY app.py /usr/src/app/
+EXPOSE 5000
+
+CMD ["python", "/usr/src/app/app.py"]
